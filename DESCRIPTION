@@ -1,0 +1,49 @@
+Package: nupoint
+Title: 2D distance sampling
+Version: 1.0.52
+Author: Martin Cox, David Borchers and Natalie Kelly
+Description: Provides functions to fit detection functions while allowing for
+    non-uniform distribution of objects (which vary with some underlying
+    environmental/spatial covariate) from a point transect. For R 3.0+
+Depends:
+    fields,
+    nor1mix
+Maintainer: Martin Cox <nupointR@gmail.com>
+License: GPL-2
+Collate:
+    'GoF.environ.fit.f.R'
+    'MBE.fit.f.R'
+    'boot.nupoint.env.R'
+    'bound.chk.R'
+    'detectF.R'
+    'distr.R'
+    'environ.fit.f.R'
+    'environ.mle.f.R'
+    'environ.simulator.f.R'
+    'est.abundance.from.sim.R'
+    'est.abundance.whales.R'
+    'histline.R'
+    'make.atten.f.R'
+    'mle.R'
+    'mnorm.f.R'
+    'norm.atten.gof.R'
+    'nupoint.boot.R'
+    'nupoint.env.boot.R'
+    'nupoint.env.fit.R'
+    'nupoint.env.gof.R'
+    'nupoint.env.simulator.R'
+    'nupoint.fit.R'
+    'nupoint.gof.R'
+    'nupoint.p.star.R'
+    'nupoint.vol.density.R'
+    'par.unpack.R'
+    'pi.z.f.R'
+    'shore.calc.integral.grid.R'
+    'shore.get.denominator.R'
+    'shore.get.denominator.mbe.r'
+    'shore.get.numerator.R'
+    'shore.get.numerator.mbe.R'
+    'shore.only.R'
+    'swathInOutF.R'
+    'truncate.R'
+    'tweedief.R'

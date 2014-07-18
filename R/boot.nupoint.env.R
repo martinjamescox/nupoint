@@ -1,0 +1,4 @@
+boot.nupoint.env <- function () 
+{
+}
+

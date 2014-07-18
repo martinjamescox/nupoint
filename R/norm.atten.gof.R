@@ -1,0 +1,4 @@
+norm.atten.gof <- function () 
+{
+}
+

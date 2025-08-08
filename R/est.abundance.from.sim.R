@@ -7,11 +7,11 @@
 #'mixture of normals) in association with the parameters estimated by
 #'the likelihood routine (\code{nupoint.env.fit}) are summed to produce estimate.
 #'
-#'@param fit.obj fitted object
-#'@param truncation distance proportion (default 0.9) such that sightings beyond 0.9*max.r are deleted
-#'@param det.model detection model under which to perform estimation, 
+#'@param environ.sim.dat fitted object
+#'@param trunc.prop =0.9 distance proportion (default 0.9) such that sightings beyond 0.9*max.r are deleted
+#'@param det.model = NULL detection model under which to perform estimation, 
 #'if NULL (default), then estimation is performed under true model
-#'@param gradient.model gradient model under which to perform estimation, if NULL (default),
+#'@param gradient.model =NULL gradient model under which to perform estimation, if NULL (default),
 #'estimation is performed under true model
 #'
 #'@return list containing abundance estimate within covered region and
@@ -32,19 +32,27 @@
 #'
 #'@examples
 #'
-#'  mysim <- nupoint.env.simulator(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim=c(0,100),
+#'  mysim <- nupoint.env.simulator(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),
+#'  ylim=c(0,100),
 #'            grid.resolution=1,grad.type='NORM',det.type='HNORM',
 #'            observer.coords=c(100,0),nbr.targets=350,
-#'            environment.simulator.control=list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
+#'            environment.simulator.control=
+#'             list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
 #'            mask.mat=NULL,mask.ang=0,plot=TRUE,
 #'            perp.lines=NULL,n=NULL)
-#'  correct.model <- est.abundance.from.sim(mysim, trunc.prop=0.9, det.model=NULL, gradient.model=NULL)
-#'  wrong.uni <- est.abundance.from.sim(mysim, trunc.prop=0.9, det.model=NULL, gradient.model="UNIFORM")
-#'  wrong.beta <- est.abundance.from.sim(mysim, trunc.prop=0.9, det.model=NULL, gradient.model="BETA")
-#'  wrong.lognorm <- est.abundance.from.sim(mysim, trunc.prop=0.9, det.model=NULL, gradient.model="LOGNORM")
+#'  correct.model <- est.abundance.from.sim(mysim, trunc.prop=0.9, 
+#'   det.model=NULL, gradient.model=NULL)
+#'  wrong.uni <- est.abundance.from.sim(mysim, trunc.prop=0.9, 
+#'   det.model=NULL, gradient.model="UNIFORM")
+#'  wrong.beta <- est.abundance.from.sim(mysim, trunc.prop=0.9, 
+#'   det.model=NULL, gradient.model="BETA")
+#'  wrong.lognorm <- est.abundance.from.sim(mysim, trunc.prop=0.9, 
+#'   det.model=NULL, gradient.model="LOGNORM")
 #'#  compare AIC scores among the 4 models; which is lowest?
 
-est.abundance.from.sim <- function(environ.sim.dat, trunc.prop=0.9, det.model=NULL,
+est.abundance.from.sim <- function(environ.sim.dat, 
+                                   trunc.prop=0.9, 
+                                   det.model=NULL,
                                    gradient.model=NULL) {
   estimate.grad.model <- ifelse(is.null(gradient.model),
                                 environ.sim.dat$settings$grad.type,gradient.model)
@@ -81,8 +89,9 @@ sim.norm.fit<-nupoint.env.fit(pars=environ.sim.dat$settings$pars,
                               wz=max(environ.sim.dat$z.mat),
                               grad.type=estimate.grad.model,
                               det.type=estimate.det.model,
-                              n=NULL,lower.b=rep(1,length(environ.sim.dat$settings$pars))
-                              ,upper.b=rep(100,length(environ.sim.dat$settings$pars)))
+                              n=NULL,
+                              lower.b=rep(1,length(environ.sim.dat$settings$pars)),
+                              upper.b=rep(100,length(environ.sim.dat$settings$pars)))
 #  estimate P for HT
 #  truncate the grid at the truncation distance 
 new.rdmat <- environ.sim.dat$rd.mat

@@ -14,6 +14,7 @@
 #'@param           wz        seabed depth truncation distance. NB assumes z is positive
 #'@param           grad.type  cue depth disribution type e.g. "NORM"  - this is currently coded for
 #'                           a radial detection function only
+#'@param           det.type  detection function type c("HNORM","HAZARD") see detectF()                            
 #'@param           n         number of distributions in a multinomial distribution (default NULL).
 #'@param           diagnostic  print diagnostic data.
 #'@return   single value of the log-likelihood denominator.

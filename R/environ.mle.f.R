@@ -1,9 +1,10 @@
 #'Log-likelihood forenvironmental variable (depth in case of whale) NB this function is optimised by optim.
-#'@param    pars     model parameters, paramter vector optimised using optim. e.g.: 
+#'@param    pars     model parameters, parameter vector optimised using optim. e.g.: 
 #'                           pars[1]=depth gradient par 1;
 #'                           pars[2]=depth gradient par 2;
 #'                           pars[3]=half normal rng detection function. NB (i) pars unpacked using
-#'                           par.unpack.F, (ii) structure for MNORM \eqn{\mu_1,\sigma_1,\alpha_1,...,\mu_n,\sd_n},
+#'                           par.unpack.F, (ii) structure for 
+#'                           MNORM \eqn{\mu_1,\sigma_1,\alpha_1,...,\mu_n,\sd_n},
 #'                               there is no \eqn{alpha_n}
 #'@param           z       seabed depth under cue sighting.
 #'@param           dzdy     rate of change of seabed depth at cue sighting.
@@ -15,8 +16,9 @@
 #'@param           wx     x-dimension truncation distance (for x-direction uniform sampling).
 #'@param           wy     y-dimension truncation distance.
 #'@param           wz     seabed depth truncation distance. NB assumes z is positive
-#'@param           grad.type  cue depth disribution type e.g. "NORM"  - this is currently coded for
+#'@param           g.type  cue depth distribution type e.g. "NORM"  - this is currently coded for
 #'                           a radial detection function only
+#'@param           det.type  detection function type c("HNORM","HAZARD") see detectF()                         
 #'@param           n    number of distributions in a multinomial distribution (default NULL).
 #'@param           diagnostic  print diagnostic data from the hore.get.numerator and shore.get.denominator.
 #'@param           verbose   prints the log-likelihood and parameter estimates for s,                         

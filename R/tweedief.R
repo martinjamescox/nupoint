@@ -7,10 +7,13 @@
 #'@return scaled density of the tweedie distribution for parameters par
 #'@note this function is required because passing an NA into dtweedie causes an error.  This function
 #'         returns an NA when it is passed an NA in the x argument.
-tweedief <- function(x,pars,zlim){
+#'@importFrom tweedie dtweedie ptweedie
+tweedief <- function(x,
+                     pars,
+                     zlim){
   #DEPENDS: package tweedie
     d=rep(NA,length(x))
-  d[is.na(x)==FALSE]=dtweedie(x[is.na(x)==FALSE],mu=pars[1],phi=pars[2],power=pars[3])/ #mu,phi,power
-    diff(ptweedie(q=zlim, mu=pars[1],phi=pars[2],power=pars[3])) #
+  d[is.na(x)==FALSE]=tweedie::dtweedie(x[is.na(x)==FALSE],mu=pars[1],phi=pars[2],power=pars[3])/ #mu,phi,power
+    diff(tweedie::ptweedie(q=zlim, mu=pars[1],phi=pars[2],power=pars[3])) #
   return(d)
 }

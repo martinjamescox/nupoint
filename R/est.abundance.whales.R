@@ -9,8 +9,8 @@
 #'mixture of normals) in association with the parameters estimated by
 #'the likelihood routine (\code{nupoint.env.fit}) are summed to produce estimate.
 #'
-#'@param fit.obj fitted object
-#'@param truncation distance proportion (default 0.9) such that sightings beyond 0.9*max.r are deleted
+#'@param environ.sim.dat simulated fitted object
+#'@param trunc.prop distance proportion (default 0.9) such that sightings beyond 0.9*max.r are deleted
 #'
 #'@return list containing abundance estimate within covered region and
 #'abundance estimate for entire study area (assuming grid cells are unit square in area)
@@ -29,7 +29,8 @@
 #'
 #'@export
 
-est.abundance.whales <- function(environ.sim.dat, trunc.prop=0.9) {
+est.abundance.whales <- function(environ.sim.dat, 
+                                 trunc.prop=0.9) {
 # nsim <-200
 # popn <- numeric(nsim)
 # for (k in 1:nsim) {

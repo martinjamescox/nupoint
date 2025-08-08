@@ -24,6 +24,10 @@
 #'nupoint.vol.density(n.seen=251, L=11*2.5*1e3, w=100, theta.max=pi/3, P.star=0.079)
 #'}
 #'
-nupoint.vol.density <- function(n.seen,L,w,theta.max,P.star) n.seen / L * 1/(2*w*sin(theta.max)*w*P.star)
+nupoint.vol.density <- function(n.seen,
+                                L,
+                                w,
+                                theta.max,
+                                P.star) n.seen / L * 1/(2*w*sin(theta.max)*w*P.star)
 
 

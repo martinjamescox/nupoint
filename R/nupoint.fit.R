@@ -47,7 +47,7 @@
 #'Brierley, A.S. (2011). Estimating the density of Antarctic krill (Euphausia
 #'superba) from multi-beam echo-sounder observations using distance sampling
 #'methods. Journal of the Royal Statistical Society: Series C (Applied
-#'Statistics), vol 60, part 2, pp. 301–316.
+#'Statistics), vol 60, part 2, pp. 301?316.
 #'
 #'Marques, T.A. , Buckland, S.T. , Borchers, D.L. , Tosh, D. and McDonald, R.A.
 #'(2010). \code{ Point Transect Sampling Along Linear Features } Biometrics ,
@@ -58,9 +58,10 @@
 #'
 #'##Don't run:
 #'#Example 1
-#'norm.fit <-   nupoint.fit(c(50,20,50),
-#'                       sight.x=krill$x,
-#'                       sight.y=krill$y,
+#'data(nupoint_krill)
+#'norm.fit <-   nupoint.fit(pars=c(50,20,50),
+#'                       sight.x=nupoint_krill$x,
+#'                       sight.y=nupoint_krill$y,
 #'                       w=100,
 #'                       theta.max=pi/3,
 #'                       grad.type="NORM",
@@ -70,7 +71,7 @@
 #'# ---------------------------
 #'#   Parallel density gradient likelihood settings
 #'# ---------------------------
-#'#   Depth preference parametric form: NORM
+#'# Depth preference parametric form: NORM
 #'# range detection function, g(r), parametric form: HNORM
 #'# Parameter starting values = 50 20 50
 #'# Angular detection function applied: FALSE
@@ -89,10 +90,19 @@
 #'# ---------------------------
 #'#Example 2
 #'#create an attenuation function:
-#'at.fit=make.atten.f(depths=krill$z,form='norm',starting.pars=c(90,10),plot=TRUE)
+#'at.fit=make.atten.f(prep.dist=nupoint_krill$z,
+#' form='norm',
+#' starting.pars=c(90,10),
+#' plot=TRUE)
 #'#fit a Beta vertical distribution:
-#'mbe.beta=nupoint.fit(pars=c(3,1.5,40), sight.x=krill$x, sight.y=krill$y,sight.z=krill$z,
-#'                      w=100,theta.max=pi/3,grad.type='BETA',det.type='HNORM',grid.density=100,lower.b=c(0.5,0.5,10),upper.b=c(20,20,1000))
+#'mbe.beta=nupoint.fit(pars=c(3,1.5,40), 
+#'   sight.x=nupoint_krill$x, 
+#'   sight.y=nupoint_krill$y,
+#'   sight.z=nupoint_krill$z,
+#'                      w=100,theta.max=pi/3,grad.type='BETA',det.type='HNORM',
+#'                      grid.density=100,
+#'                      lower.b=c(0.5,0.5,10),
+#'                      upper.b=c(20,20,1000))
 #'#---------------------------
 #'#Parallel density gradient likelihood settings
 #'#---------------------------
@@ -117,8 +127,21 @@
 #'#---------------------------
 #'##End don't run
 #'
-nupoint.fit <- function(pars,sight.x,sight.y,sight.z=NULL, w, theta.max,grad.type, det.type, n=NULL,
-                   grid.density=100, angularDetect=FALSE,verbose=FALSE,lower.b,upper.b,optim.control=NULL){
+nupoint.fit <- function(pars,
+                        sight.x,
+                        sight.y,
+                        sight.z=NULL, 
+                        w, 
+                        theta.max,
+                        grad.type, 
+                        det.type, 
+                        n=NULL,
+                   grid.density=100, 
+                   angularDetect=FALSE,
+                   verbose=FALSE,
+                   lower.b,
+                   upper.b,
+                   optim.control=NULL){
   #### THIS FUNCTION IS DOCUMENTED IN NUPOINT #####
   #20121107: uses optim to obtain MLE for multibeam type problems.
   #INPUTS:

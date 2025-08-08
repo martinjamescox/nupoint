@@ -9,12 +9,18 @@
 #'@param  mnormPlotFlag  argument to be passed mnorm.f (diagnostic) - should mvnorm be plotted
 #'@param mnormVerboseFlag  argument to be passed mnorm.f (diagnostic)
 #'@return scaled density for a given depth (dimension of interest).
-#'CALLS: tweedief; mnorm.f
+#'#CALLS: tweedief; mnorm.f
 #'@details the scaling of density could be removed for the by observation calculation of the integration
 #' grid.  that way the integration grid could be calculated for each parameter estimate, then trimmed to 
 #' seabed depth and then scaled.
 #'variable maxz can be overwritten by seabed at each observation in multibeam case
-pi.z.f <- function(g.type,pars,z,z.lim,seabedAtObs=NULL,n=NULL,mnormPlotFlag=FALSE,
+pi.z.f <- function(g.type,
+                   pars,
+                   z,
+                   z.lim,
+                   seabedAtObs=NULL,
+                   n=NULL,
+                   mnormPlotFlag=FALSE,
                 mnormVerboseFlag=FALSE){ 
     maxz=z.lim[2] 
   if(length(seabedAtObs)!=0){

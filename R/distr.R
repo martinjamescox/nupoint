@@ -2,8 +2,10 @@
 #'
 #'@param x data
 #'@param dist distribution of interest
-#'@param type
-#'@param model model being fitted
+#'@param param parameters of the distribution function
+#'@param type = 'd'
+#'@param model = NULL model being fitted
+#'@param ... additional arguments to be passed to the distribution function
 distr <- function (x, dist, param, type = "d", model = NULL, ...) 
 {
   if (!is.null(model)) {

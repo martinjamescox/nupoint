@@ -89,6 +89,8 @@
 #'@param diagnostic \code{Logical. Default FALSE. If TRUE diagnostic
 #'information for each call to the likelihood numerator and denominator
 #'functions is printed to the console.}
+#'@param print.summary \code{Logical. Default TRUE. If TRUE, a summary of the
+#'fit is printed to the console.  If FALSE, no summary is printed.}
 #'@param lower.b \code{Vector of lower parameter space bounds.  Length must
 #'equal that of the pars argument. }
 #'@param upper.b \code{Vector of upper parameter space bounds.  Length must
@@ -101,12 +103,19 @@
 #'@keywords misc
 #'@examples
 #'
-#'attach(sightings) # subset of beaked whale data from Arranz (submitted)
+#'data(nupoint_sightings) # subset of beaked whale data from Arranz (submitted)
 #'#fit a normal environmental feature preference and half-normal detection function:
 #'environ.fit=nupoint.env.fit(pars=c(1000,200,3000),
-#'              z=sighting.mat$z, rd=sighting.mat$r, dzdy=sighting.mat$dzdy,
-#'        z.mat=z.mat, dzdy.mat=zGradmat, rd.mat=rd.mat,
-#'              minz=minz, wx=wx, wy=wy, wz=wz,
+#'              z=sightings$sighting.mat$z, 
+#'              rd=sightings$sighting.mat$r, 
+#'              dzdy=sightings$sighting.mat$dzdy,
+#'        z.mat=sightings$z.mat, 
+#'        dzdy.mat=sightings$zGradmat, 
+#'        rd.mat=sightings$rd.mat,
+#'              minz=sightings$minz, 
+#'              wx=sightings$wx, 
+#'              wy=sightings$wy, 
+#'              wz=sightings$wz,
 #'              grad.type="NORM", det.type="HNORM",
 #'              lower.b=c(-2000,1,1),upper.b=c(10000,10000,10000))
 #'\dontrun{
@@ -126,16 +135,15 @@
 #'# parameter point estimates = 1171.479 503.87 3020.442
 #'# AIC = 3893.23
 #'# ------------------------------------------------------
-#'detach(sightings)
 #'}
 #'##example of a 2 component mixture normal:
-#'attach(sightings)
+#'data(nupoint_sightings)
 #'det.type="HNORM"
 #'sigma.r=3000 #half-normal sigma detection function parameter
 #'grad.type="MNORM" #seabed depth cue distribution shape.
 #'nDist=2 #number of normal distributions.
 #'wt=rep(1/nDist,nDist) #distribution weights (final element removed later)
-#'mu=seq(minz,wz,length=nDist) #distribute means along the environmental gradient
+#'mu=seq(sightings$minz,sightings$wz,length=nDist) #distribute means along the environmental gradient
 #'sigma=rep(300,nDist)
 #'pars=as.vector(matrix(c(mu,sigma,wt),ncol=nDist,byrow=TRUE))
 #'pars=c(pars[-length(pars)],sigma.r)
@@ -154,16 +162,16 @@
 #'upper.b=c(upper.b[-length(upper.b)],sigma.rmax)
 #'#5) fit using optim with the  nupoint.env.fit function
 #'environ.fit=nupoint.env.fit(pars=pars,
-#'              z=sighting.mat$z,
-#'                       rd=sighting.mat$r,
-#'                        dzdy=sighting.mat$dzdy,
-#'                       z.mat=z.mat,
-#'                       dzdy.mat=zGradmat,
-#'                       rd.mat=rd.mat,
-#'                       minz=minz,
-#'                       wx=wx,
-#'                       wy=wy,
-#'                       wz=wz,
+#'              z=sightings$sighting.mat$z,
+#'                       rd=sightings$sighting.mat$r,
+#'                        dzdy=sightings$sighting.mat$dzdy,
+#'                       z.mat=sightings$z.mat,
+#'                       dzdy.mat=sightings$zGradmat,
+#'                       rd.mat=sightings$rd.mat,
+#'                       minz=sightings$minz,
+#'                       wx=sightings$wx,
+#'                       wy=sightings$wy,
+#'                       wz=sightings$wz,
 #'                       grad.type=grad.type,
 #'                       det.type=det.type,
 #'                       n=nDist,lower.b=lower.b,upper.b=upper.b)
@@ -189,10 +197,27 @@
 #'#AIC = 3894.54
 #'#------------------------------------------------------
 #'}
-#'detach(sightings)
 #'
-nupoint.env.fit <- function(pars,z, rd,dzdy,z.mat,dzdy.mat,rd.mat,minz,wx,wy,wz,grad.type,det.type,
-                       verbose=FALSE,n=NULL,diagnostic=FALSE,print.summary=TRUE,lower.b,upper.b,optim.control=NULL)
+nupoint.env.fit <- function(pars,
+                            z, 
+                            rd,
+                            dzdy,
+                            z.mat,
+                            dzdy.mat,
+                            rd.mat,
+                            minz,
+                            wx,
+                            wy,
+                            wz,
+                            grad.type,
+                            det.type,
+                       verbose=FALSE,
+                       n=NULL,
+                       diagnostic=FALSE,
+                       print.summary=TRUE,
+                       lower.b,
+                       upper.b,
+                       optim.control=NULL)
 {
    bound.chk=bound.chk.f(pars,lower=lower.b,upper=upper.b,f.n='mbe.fit.f')
   if(bound.chk) return('chk_parameter_boundary')
@@ -206,7 +231,7 @@ nupoint.env.fit <- function(pars,z, rd,dzdy,z.mat,dzdy.mat,rd.mat,minz,wx,wy,wz,
   cat('range detection function, g(r), parametric form:',det.type,'\n')
   if(grad.type=='MNORM') {
     cat('Mixture of normal distributions with starting values =\n')
-    print(matrix(c(pars[-((n*3):length(pars))],1-sum(pars[(1:(n-1)*3)])),nrow=nDist,byrow=TRUE,
+    print(matrix(c(pars[-((n*3):length(pars))],1-sum(pars[(1:(n-1)*3)])),nrow=n,byrow=TRUE,
                  dimnames=list(paste('mixture',1:n,sep='-'),c('mu','sigma','weight'))))
     cat('Detection function starting values  =',pars[((n*3):length(pars))],'\n')
     pars[(1:(n-1)*3)]=log(qgamma(pars[(1:(n-1)*3)],3,2)) #scale wts onto cumuluative gamma dist'n

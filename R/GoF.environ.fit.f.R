@@ -15,11 +15,23 @@
 #' @param n  number of distributions in a multinomial distribution (default NULL).
 #' @param plot TRUE/FALSE 4 panel plot of GoF
 #' @param dzdy.mat matrix of derivatives of z with respct to y
+#' @param breaks vector of breaks for seabed intervals. If NULL, then seabed intervals are determined from minz and wz.
 #' @note  Requires fields package, functions: histline; detectF; pi.z.f
 #' @return   single value of the log-likelihood numerator.
 #' @details     Calls par.unpack.F; pi.z.f; package fields for plotting.
-GoF.environ.fit.f <- function(pars,r.mat,z.mat,minz,wz,z.obs,grad.type,det.type,nbr.intervals,plot=FALSE,
-                              n=NULL,dzdy.mat,breaks=NULL)
+GoF.environ.fit.f <- function(pars,
+                              r.mat,
+                              z.mat,
+                              minz,
+                              wz,
+                              z.obs,
+                              grad.type,
+                              det.type,
+                              nbr.intervals,
+                              plot=FALSE,
+                              n=NULL,
+                              dzdy.mat,
+                              breaks=NULL)
 {
   parList=par.unpack.F(grad.type,pars,n)
   grad.pars=parList[[1]]; det.par=parList[[2]]
@@ -67,7 +79,7 @@ GoF.environ.fit.f <- function(pars,r.mat,z.mat,minz,wz,z.obs,grad.type,det.type,
   cat('-------------------------------------------------------\n')
   
   if(plot){
-    require(fields,quietly = TRUE)
+    #require(fields,quietly = TRUE)
     par(mfrow=c(2,2),mar=c(3,2,2,2))
     image.plot(z.mat,main='z(x,y)',cex.main=0.75)
     image.plot(cut.mat,main='interval',cex.main=0.75)

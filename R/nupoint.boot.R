@@ -13,7 +13,7 @@
 #'shoal} }
 #'
 #'For each bootstrap, the vertical distrubtion and detection function
-#'parameters are estimated along with P* (see \code{\link{nupoint.p.star.f}}).
+#'parameters are estimated along with P* (see \code{\link{nupoint.p.star}}).
 #'If total line transect length, L, is specified then shoal volumetric density,
 #'\code{shoal.vol.den.hat}, and shoal areal density \code{shoal.areal.den.hat}
 #'are also estimated. If survey region area, A, is specified then shoal
@@ -88,12 +88,23 @@
 #'  shoalBioMass='log(bio.g) ~ theta')
 #'}
 #'
-nupoint.boot <- function (observations, nboot, blockVar, 
-                       initial.pars, grad.type, det.type,
-                      w, theta.max, n=NULL, attenuation=FALSE,
-                      grid.density=100, lower.b, upper.b,
+nupoint.boot <- function (observations, 
+                          nboot, 
+                          blockVar, 
+                       initial.pars, 
+                       grad.type, 
+                       det.type,
+                      w, 
+                      theta.max, 
+                      n=NULL, 
+                      attenuation=FALSE,
+                      grid.density=100, 
+                      lower.b, 
+                      upper.b,
                       angularDetect=FALSE,
-                      L=NULL, A=NULL, shoalBioMass=NULL) 
+                      L=NULL, 
+                      A=NULL, 
+                      shoalBioMass=NULL) 
 {
   #20130201: function created.
   #Initialise variables:

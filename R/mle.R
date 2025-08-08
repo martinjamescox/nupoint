@@ -4,7 +4,10 @@
 #'@param start starting values for parameters
 #'@param method passed through to optim for optimisation method to use
 #'@return list containing AIC values, VC matrix, parameter estimates, log likelihood...
-mle <- function (x, dist, start = NULL, method = "Nelder-Mead") 
+mle <- function (x, 
+                 dist, 
+                 start = NULL, 
+                 method = "Nelder-Mead") 
 {
   if (is.null(start)) 
     stop("'start' must be specified!")

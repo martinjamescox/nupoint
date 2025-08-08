@@ -5,7 +5,10 @@
 #'@param        f.n  character string of function within which the bounds are being checked e.g. 'mbe.fit.f for multibeam.
 #'@return warning flag  logical FALSE = estimates are fine. TRUE = estimates outside upper or lower bounds.
 
-bound.chk.f <- function(pars,lower,upper,f.n)
+bound.chk.f <- function(pars,
+                        lower,
+                        upper,
+                        f.n)
 {
 warning.flag=FALSE
   LC=which(pars<=lower)

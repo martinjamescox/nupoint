@@ -43,18 +43,30 @@
 #'@examples
 #'
 #'##Don't run:
-#'attach(sightings) # subset of beaked whale data from Arranz (submitted)
+#'data(nupoint_sightings) # subset of beaked whale data from Arranz (submitted)
 #'#fit a normal environmental feature preference and half-normal detection function:
 #'environ.fit=nupoint.env.fit(pars=c(1000,200,3000),
-#'              z=sighting.mat$z, rd=sighting.mat$r, dzdy=sighting.mat$dzdy,
-#'        z.mat=z.mat, dzdy.mat=zGradmat, rd.mat=rd.mat,
-#'              minz=minz, wx=wx, wy=wy, wz=wz,
+#'              z=sightings$sighting.mat$z, rd=sightings$sighting.mat$r, 
+#'              dzdy=sightings$sighting.mat$dzdy,
+#'        z.mat=sightings$z.mat, 
+#'        dzdy.mat=sightings$zGradmat, 
+#'        rd.mat=sightings$rd.mat,
+#'              minz=sightings$minz, 
+#'              wx=sightings$wx, 
+#'              wy=sightings$wy, 
+#'              wz=sightings$wz,
 #'              grad.type="NORM", det.type="HNORM",
 #'              lower.b=c(-2000,1,1),upper.b=c(10000,10000,10000))
-#'#after running nupoint.env.fit using the example sightings data with 'grad.type="NORM", det.type="HNORM"':
-#'tt=nupoint.env.gof(pars=environ.fit$par, r.mat=rd.mat, z.mat=z.mat, minz=minz,wz=wz,
-#'        z.obs=sighting.mat$z, grad.type="NORM", det.type="HNORM",
-#'        intervals=13,plot=FALSE,dzdy.mat=zGradmat)
+#'#after running nupoint.env.fit using the example sightings data with' 
+#'#grad.type="NORM", det.type="HNORM":'
+#'tt=nupoint.env.gof(pars=environ.fit$par, r.mat=sightings$rd.mat, 
+#' z.mat=sightings$z.mat, 
+#' minz=sightings$minz,
+#' wz=sightings$wz,
+#'        z.obs=sightings$sighting.mat$z, 
+#'        grad.type="NORM", det.type="HNORM",
+#'        intervals=13,plot=FALSE,
+#'        dzdy.mat=sightings$zGradmat)
 #'#-------------------------------------------------------
 #'#1D Chi-squared Goodness-of-Fit results
 #'#-------------------------------------------------------
@@ -82,9 +94,13 @@
 #'#example using user defined bin break points
 #'binV=seq(sightings$minz,sightings$wz,length=14) #GoF bin break point vector.
 #'binV=binV[-5] #remove break 5
-#'tt=nupoint.env.gof(pars=environ.fit$par, r.mat=rd.mat, z.mat=z.mat, minz=minz,wz=wz,
-#'        z.obs=sighting.mat$z, grad.type="NORM", det.type="HNORM",
-#'        intervals=binV,plot=FALSE,dzdy.mat=zGradmat)
+#'tt=nupoint.env.gof(pars=environ.fit$par, r.mat=sightings$rd.mat, 
+#' z.mat=sightings$z.mat, 
+#' minz=sightings$minz,
+#' wz=sightings$wz,
+#'        z.obs=sightings$sighting.mat$z, grad.type="NORM", det.type="HNORM",
+#'        intervals=binV,plot=FALSE,
+#'        dzdy.mat=sightings$zGradmat)
 #'#-------------------------------------------------------
 #'#1D Chi-squared Goodness-of-Fit results
 #'#-------------------------------------------------------
@@ -107,11 +123,21 @@
 #'#Chi-squ. df          =  8
 #'#Chi-squ. GoF p-value =  0.3984676
 #'#-------------------------------------------------------
-#'detach(sightings)
 #'##End don't run
 #'
-nupoint.env.gof <- function(pars,r.mat,z.mat,minz,wz,z.obs,grad.type,det.type,intervals,plot=FALSE,
-              n=NULL,dzdy.mat,breaks=NULL)
+nupoint.env.gof <- function(pars,
+                            r.mat,
+                            z.mat,
+                            minz,
+                            wz,
+                            z.obs,
+                            grad.type,
+                            det.type,
+                            intervals,
+                            plot=FALSE,
+              n=NULL,
+              dzdy.mat,
+              breaks=NULL)
 {
   #20121031 nupoint.env.gof: chi-sq GoF for whale data (this is the 1D version)
   #INPUTS:    pars        =   model parameters, paramter vector optimised using optim. e.g.: 
@@ -202,7 +228,7 @@ nupoint.env.gof <- function(pars,r.mat,z.mat,minz,wz,z.obs,grad.type,det.type,in
   cat('-------------------------------------------------------\n')
   
   if(plot){
-    require(fields,quietly = TRUE)
+    #require(fields,quietly = TRUE)
     par(mfrow=c(2,2),mar=c(3,2,2,2))
     image.plot(z.mat,main='z(x,y)',cex.main=0.75)
     image.plot(cut.mat,main='interval',cex.main=0.75)

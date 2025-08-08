@@ -73,7 +73,15 @@
 #'sapply(colnames(boot.res),function(x) hist(boot.res[,x],main=x,xlab='Estimate'))
 #'}
 #'
-nupoint.env.boot <- function (sightings,nboot,blockVar=NULL,initial.pars,grad.type,det.type,n=NULL,lower.b,upper.b) 
+nupoint.env.boot <- function (sightings,
+                              nboot,
+                              blockVar=NULL,
+                              initial.pars,
+                              grad.type,
+                              det.type,
+                              n=NULL,
+                              lower.b,
+                              upper.b) 
 {
   #find grouping variable vector:
   if(!is.integer(blockVar) & !is.character(blockVar))  {warning('blockVar argument is not of type integer or character')

@@ -82,8 +82,20 @@
 #'# -------------------------------------------------------
 #'}
 #'
-nupoint.gof <- function(y.obs,pars,w,grad.type,det.type,n=NULL,intervals,verbose=TRUE,plot=FALSE,attenuation=FALSE,
-                        angularDetect=FALSE,xmax=NULL,theta.max,grid.resolution=100)
+nupoint.gof <- function(y.obs,
+                        pars,
+                        w,
+                        grad.type,
+                        det.type,
+                        n=NULL,
+                        intervals,
+                        verbose=TRUE,
+                        plot=FALSE,
+                        attenuation=FALSE,
+                        angularDetect=FALSE,
+                        xmax=NULL,
+                        theta.max,
+                        grid.resolution=100)
 {
   if(length(xmax)==0) xmax=w*sin(theta.max)
   #20130321: modified to include fixed intervals or breaks for the GoF bins:
@@ -103,7 +115,7 @@ nupoint.gof <- function(y.obs,pars,w,grad.type,det.type,n=NULL,intervals,verbose
   if(max(breaks)<max(y.obs))
 	stop('Maximum interval specified in intervals ARG < maximum value in y.obs ARG.')
 
-  require(fields,quietly=TRUE)
+  #require(fields,quietly=TRUE)
   pars=par.unpack.F(grad.type,pars,n)
   xV=seq(0,xmax,length.out=grid.resolution)
   yV=seq(0,w,length.out=grid.resolution)

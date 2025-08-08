@@ -1,5 +1,17 @@
-MBE.fit.f <- function(pars,sight.x,sight.y,sight.sb.z=NULL, w, theta.max,grad.type, det.type, 
-                   grid.density=100, angularDetect=FALSE,verbose=FALSE,lower.b,upper.b,optim.control=NULL){
+MBE.fit.f <- function(pars,
+                      sight.x,
+                      sight.y,
+                      sight.sb.z=NULL, 
+                      w, 
+                      theta.max,
+                      grad.type, 
+                      det.type, 
+                   grid.density=100, 
+                   angularDetect=FALSE,
+                   verbose=FALSE,
+                   lower.b,
+                   upper.b,
+                   optim.control=NULL){
   #### THIS FUNCTION IS DOCUMENTED IN NUPOINT #####
   #20121107: uses optim to obtain MLE for multibeam type problems.
   #INPUTS:
@@ -27,7 +39,7 @@ MBE.fit.f <- function(pars,sight.x,sight.y,sight.sb.z=NULL, w, theta.max,grad.ty
       warning('Seabed attenuation function missing when seabed at observation data passed to mbe.fit.f in the sight.sb.z ARG.')
       cat('WARNING: seabed attenuation function atten.f not in workspace.\n')
       cat('Either run make.atten.f to create atten.f or remove seabed data from mbe.fit.f (sight.sb.z=NULL)\n')
-      break
+      stop
     }
   }
   #no angular detection function in workspace
@@ -36,7 +48,7 @@ MBE.fit.f <- function(pars,sight.x,sight.y,sight.sb.z=NULL, w, theta.max,grad.ty
       warning('Angular detection function, angDetF, missing when angularDetect=TRUE in mbe.fit.f')
       cat('WARNING: Angular detection function, angDetF, not in workspace.')
       cat('Either create angDetF or set angularDetect=FALSE in mbe.fit.f','\n')
-      break
+      stop
     }
   }
   if(any(sight.y>w)){

@@ -44,8 +44,15 @@
 #'  attenuation=FALSE,angularDetect=FALSE)
 #'}
 #'
-nupoint.p.star <- function(pars.hat,grad.type,det.type,n=NULL,w,theta.max,grid.density=100,
-                       attenuation=FALSE,angularDetect=FALSE)
+nupoint.p.star <- function(pars.hat,
+                           grad.type,
+                           det.type,
+                           n=NULL,
+                           w,
+                           theta.max,
+                           grid.density=100,
+                       attenuation=FALSE,
+                       angularDetect=FALSE)
 {
   #20130108 nupoint.p.star
   #we start by calling the denominator function and passing

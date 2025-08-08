@@ -12,13 +12,19 @@
 #'
 #'2) Hazard rate "HAZARD", \code{det.par=c(sigma,b)}
 #'
+#'3) Exponential "EXPONENTIAL", \code{det.par=c(sigma,b)}
+#'
+#'4) Exponential quadratic "EXP_QUAD", \code{det.par=c(a,b)}
+#'
+#'5) Logistic "LOGISTIC", \code{det.par=c(x0,sigma)}
+#'
 #'NB If constructing an intital value vector, the \code{pars} argument in the
 #'\code{\link{nupoint.env.fit}} function, \code{pars=c(...,detect function
 #'parameters)} where \code{...} denotes environmental gradient parameters.
 #'
 #'@param rd \code{radial distance from observer to detected target.}
 #'@param det.type \code{parametric form of the detection function
-#'c("HNORM","HAZARD"). See details.}
+#'c("HNORM","HAZARD","EXPONENTIAL","EXP_QUAD"). See details.}
 #'@param det.par \code{vector of detection function parameters.}
 #'@return Detection probability at range \code{rd}.
 #'@section Reference: Buckland, S.T., Anderson,D. R., Burnham, K. P., Laake, J.
@@ -33,23 +39,22 @@
 #'pVec=detectF(rd=rVec, det.type='HNORM', det.par=50)
 #'plot(rVec,pVec,type='l',xlab='Distance',ylab='Pr(detect)')
 #'
-detectF <- function(rd,det.type,det.par)
+detectF <- function(rd,
+                    det.type,
+                    det.par)
 {
-  #20120903: detection function
-  #INPUTS: det.type = detection function type: c('HNORM','HAZARD',
-  #                   'EXP','EXPQ','LOGISTIC')
-  #         det.par = detection function parameter vector
-  #         rd = radial distance, but could also be angle.
-  #RETURNS: probability of detection for rd | det.par
-  k=1
-  if(length(det.par==3))
-    k=det.par[3]
-  out=switch(det.type,
-       HNORM =exp(-rd^2/(2*det.par[1]^2)),
-       HAZARD = k* (1-exp(-(rd/det.par[1])^-det.par[2])),
-       EXP = k* exp(-(rd/det.par[1])**det.par[2]),
-       EXPQ = k* exp(-det.par[1]*rd-det.par[2]*rd**2),
-       LOGISTIC = 1/(1+exp(-(rd-det.par[1])/det.par[2])))
-  out[out>1]=1
+  k <- 1
+  if (length(det.par) == 3)
+    k <- det.par[3]
+  
+  out <- switch(EXPR = det.type,
+                HNORM       = exp(-rd^2 / (2 * det.par[1]^2)),
+                HAZARD      = k * (1 - exp(-(rd / det.par[1])^-det.par[2])),
+                EXPONENTIAL = k * exp(-(rd / det.par[1])^det.par[2]),
+                EXP_QUAD    = k * exp(-det.par[1] * rd - det.par[2] * rd^2),
+                LOGISTIC    = 1 / (1 + exp(-(rd - det.par[1]) / det.par[2]))
+  )
+  out[out > 1] <- 1
   return(out)
 }
+

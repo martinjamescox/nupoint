@@ -10,7 +10,16 @@
 #' @param angularDetect logical: FALSE. Should angular detection be considered (not yet implemented).
 #' @param x.max    maximum distance in the x-dimension (w * sin(theta.max))
 #' @return numerator for the log-likelihood
-shore.get.numerator.mbe <- function(pars,sight.x,swarm.depth, w,seabed.z,grad.type,det.type,n=NULL,angularDetect,x.max)
+shore.get.numerator.mbe <- function(pars,
+                                    sight.x,
+                                    swarm.depth, 
+                                    w,
+                                    seabed.z,
+                                    grad.type,
+                                    det.type,
+                                    n=NULL,
+                                    angularDetect,
+                                    x.max)
 {
   radial.dist=sqrt(sight.x**2+swarm.depth**2)
   seabedAttenuation=0

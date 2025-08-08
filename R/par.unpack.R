@@ -6,7 +6,9 @@
 #'@param  n  number of distributions in a multinomial distribution (default NULL). 
 #'@return list([1]=density gradient parameters; [2]=detection function parameters).
 
-par.unpack.F <- function(grad.type,pars,n){
+par.unpack.F <- function(grad.type,
+                         pars,
+                         n){
   if(grad.type=="MNORM") {
     if(n<2)
       warning('shore.get.numerator: insufficient number of distributions specified in mixture normal perference distribution')

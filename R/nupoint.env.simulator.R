@@ -86,7 +86,7 @@
 #'nupoint.env.fit.}
 #'@param det.type \code{parametric form of the detection function
 #'c("HNORM","HAZARD"). See detectF.}
-#'@param observer.coordinates \code{x,y observer position.}
+#'@param observer.coords \code{x,y observer position.}
 #'@param nbr.targets \code{Number of targets in survey region. When
 #'Pr(detect)=1 this is the number of detected targets.}
 #'@param environment.simulator.control \code{list object comprised of vectors.
@@ -117,6 +117,7 @@
 #'@seealso \code{\link{detectF}}, \code{\link{nupoint.env.fit}}
 #'@export
 #'@keywords misc
+#'@import fields 
 #'@examples
 #'
 #'environ.sim.dat=nupoint.env.simulator(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim=c(0,100),
@@ -126,10 +127,17 @@
 #'                       mask.mat=NULL,mask.ang=0,plot=TRUE,
 #'                       perp.lines=NULL,n=NULL)
 #'
-nupoint.env.simulator <- function(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim=c(0,100),
-                       grid.resolution=1,grad.type='NORM',det.type='HNORM',
-                       observer.coords=c(100,0),nbr.targets=350,
-                       environment.simulator.control=list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
+nupoint.env.simulator <- function(pars=c(60,10,50),
+                                  z.mat=NULL,
+                                  xlim=c(0,200),
+                                  ylim=c(0,100),
+                       grid.resolution=1,
+                       grad.type='NORM',
+                       det.type='HNORM',
+                       observer.coords=c(100,0),
+                       nbr.targets=350,
+                       environment.simulator.control=
+                         list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
 					   slope.control=NULL,
                        mask.mat=NULL,mask.ang=0,plot=TRUE,
                        perp.lines=NULL,n=NULL){
@@ -370,13 +378,13 @@ nupoint.env.simulator <- function(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim
       }
     } #end polyF
     
-    require(fields,quietly = TRUE)
+    #require(fields,quietly = TRUE)
     par(mfrow=c(2,1),mar=c(3,2,2,2))
     #image.plot(y=x.coord,x=y.coord,z=dist.mat,main="Radial distance")
     #polyF(mask.ang)
     #points(shore.y,shore.x,cex=3,pch=19)
     
-    image.plot(x=x.coord,y=y.coord,z=t(det.mat),xlab='X',ylab='Y',main="Detection function, g(r)")
+    fields::image.plot(x=x.coord,y=y.coord,z=t(det.mat),xlab='X',ylab='Y',main="Detection function, g(r)")
     polyF(mask.ang)
     if(length(perp.lines)>0){
       for(i in 1:nrow(perp.out.info)) lines(c(perp.out.info$startx[i],perp.out.info$stopx[i]),
@@ -386,7 +394,7 @@ nupoint.env.simulator <- function(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim
     points(x.coord.vec,y.coord.vec,pch=19,cex=0.3)
     points(sim$x[sim$detect==1],sim$y[sim$detect==1],col="white",pch=19,cex=0.5)
     
-    image.plot(x=x.coord,y=y.coord,z=t(z.mat),xlab='X',ylab='Y',main='z(x,y)')#expression(paste("Environmental variable, ",pi[xy],'(z(x,y))')))
+    fields::image.plot(x=x.coord,y=y.coord,z=t(z.mat),xlab='X',ylab='Y',main='z(x,y)')#expression(paste("Environmental variable, ",pi[xy],'(z(x,y))')))
     polyF(mask.ang)
     points(shore.x,shore.y,cex=3,pch=19)
     points(x.coord.vec,y.coord.vec,pch=19,cex=0.3)

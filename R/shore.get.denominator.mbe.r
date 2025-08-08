@@ -11,8 +11,20 @@
 #'@param yV  vector of y dimension coordinates for integration grid.
 #'@param attenuation  Logical TRUE - use attenuation function (NB attenuation function must be called atten.f); FALSE - no attenuation.
 #'@param angularDetect  logical: FALSE. Should angular detection be considered (not yet implemented).
+#'@param xmax  maximum x coordinate of detection window (e.g. swath width).
 #'@return likelihood denominator.
-shore.get.denominator.mbe <- function(pars,num.detects,w,grad.type,det.type,n=NULL,mask,xV,yV,attenuation,angularDetect,xmax)   
+shore.get.denominator.mbe <- function(pars,
+                                      num.detects,
+                                      w,
+                                      grad.type,
+                                      det.type,
+                                      n=NULL,
+                                      mask,
+                                      xV,
+                                      yV,
+                                      attenuation,
+                                      angularDetect,
+                                      xmax)   
 {
   temp <- outer(xV, yV, shore.calc.integral.grid, pars=pars,trunc.dist=w,grad.type=grad.type,det.type=det.type,n=n,
                 attenuation=attenuation,angularDetect=angularDetect)

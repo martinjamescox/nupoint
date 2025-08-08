@@ -9,11 +9,26 @@
 #'@param g.type parametric form of the environmental gradient.  See environ.fit.f.'
 #'@param det.type parametric form of the detection function.  See detectF.'
 #'@param n  number of normal mixture distributions in the MNORM function.
+#'@param xV x vector of the grid used for numerical integration. This is the cross-track distance for MBE observations.'
+#'@param yV y vector of the grid used for numerical integration. This is the depth for MBE observations.'
 #'@param angularDetect logical: FALSE. Should angular detection be considered (not yet implemented).'
 #'@param verbose Logical. Default FALSE. If TRUE parameter estimates and log-likelihood are printed to the console for each optim search iteration.'
 #'@param mask area within the point transect where observation is possible e.g. MBE swath. created using swathInOutF in mbe.fit.f
 #'@return -log lik.
-shore.only <- function(pars,sight.x, swarm.z, grid.density,td,sb.z,g.type,det.type,n=NULL,verbose=TRUE,mask,xV,yV,angularDetect)
+shore.only <- function(pars,
+                       sight.x, 
+                       swarm.z, 
+                       grid.density,
+                       td,
+                       sb.z,
+                       g.type,
+                       det.type,
+                       n=NULL,
+                       verbose=TRUE,
+                       mask,
+                       xV,
+                       yV,
+                       angularDetect)
 {
 
   pars=par.unpack.F(g.type,pars,n=n) #  #unpack parameters

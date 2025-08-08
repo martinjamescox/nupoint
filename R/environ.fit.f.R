@@ -1,7 +1,25 @@
-environ.fit.f <- function(pars,z, rd,dzdy,z.mat,dzdy.mat,rd.mat,minz,wx,wy,wz,grad.type,det.type,
-                       verbose=FALSE,n=NULL,diagnostic=FALSE,lower.b,upper.b,optim.control=NULL)
+environ.fit.f <- function(pars,
+                          z, 
+                          rd,
+                          dzdy,
+                          z.mat,
+                          dzdy.mat,
+                          rd.mat,
+                          minz,
+                          wx,
+                          wy,
+                          wz,
+                          grad.type,
+                          det.type,
+                       verbose=FALSE,
+                       n=NULL,
+                       diagnostic=FALSE,
+                       lower.b,
+                       upper.b,
+                       nDist=NULL,
+                       optim.control=NULL)
 {
-   bound.chk=bound.chk.f(pars,lower=lowerB,upper=upperB,f.n='mbe.fit.f')
+   bound.chk=bound.chk.f(pars,lower=lower.b,upper=upper.b,f.n='mbe.fit.f')
   if(bound.chk) return('chk_parameter_boundary')
  
   #print model fit

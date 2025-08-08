@@ -1,5 +1,23 @@
-histline <- function(height,breaks,lineonly=FALSE,outline=FALSE,fill=FALSE,ylim=range(height),xlab="x",ylab="y",...)
-#'@param Takes bar heights (height) and cutbpoints (breaks), and constructs a line-only 
+#'@title makes histograms in line form
+#'@description Takes bar heights (height) and cutbpoints (breaks), and constructs a line-only 
+#'@param height vector of bar heights, and breaks vector of cutpoints
+#'@param breaks vector of cutpoints
+#'@param lineonly if TRUE, uses lines() to plot histogram, else uses plot()
+#'@param outline if TRUE, only outline of histogram is plotted
+#'@param fill if TRUE, uses polygon() to fill bars
+#'@param ylim y-axis limits
+#'@param xlab x-axis label
+#'@param ylab y-axis label
+#'@param ... additional arguments passed to plot() or lines() if lineonly=TRUE, or polygon() if fill=TRUE
+histline <- function(height,
+                     breaks,
+                     lineonly=FALSE,
+                     outline=FALSE,
+                     fill=FALSE,
+                     ylim=range(height),
+                     xlab="x",
+                     ylab="y",
+                     ...)
 #' histogram from them using the function plot() (if lineonly==FALSE) or lines()
 #' (if lineonly==TRUE). 
 #' If fill==TRUE, uses polygon() to fill bars

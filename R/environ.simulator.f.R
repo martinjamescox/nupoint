@@ -23,12 +23,22 @@
 #'    \item{zGradMat}{gradient of covariate values at grid points}
 #'    \item{settings}{characteristics describing the simulation such as grid description, detection and distribution models}
 #'    }
-environ.simulator.f <- function(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim=c(0,100),
-                       grid.resolution=1,grad.type='NORM',det.type='HNORM',
-                       observer.coords=c(100,0),nbr.targets=350,
-                       environment.simulator.control=list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
-                       mask.mat=NULL,mask.ang=0,plot=TRUE,
-                       perp.lines=NULL,n=NULL){
+environ.simulator.f <- function(pars=c(60,10,50),
+                                z.mat=NULL,
+                                xlim=c(0,200),
+                                ylim=c(0,100),
+                       grid.resolution=1,
+                       grad.type='NORM',
+                       det.type='HNORM',
+                       observer.coords=c(100,0),
+                       nbr.targets=350,
+                       environment.simulator.control=
+                         list(c(X=50,Y=10,sd=60),c(X=90,Y=0,sd=30)),
+                       mask.mat=NULL,
+                       mask.ang=0,
+                       plot=TRUE,
+                       perp.lines=NULL,
+                       n=NULL){
   if(length(mask.mat)!=0 & mask.ang>0)
 	{
 	
@@ -221,7 +231,7 @@ environ.simulator.f <- function(pars=c(60,10,50),z.mat=NULL,xlim=c(0,200),ylim=c
       }
     } #end polyF
     
-    require(fields,quietly = TRUE)
+    #require(fields,quietly = TRUE)
     par(mfrow=c(2,1),mar=c(3,2,2,2))
     #image.plot(y=x.coord,x=y.coord,z=dist.mat,main="Radial distance")
     #polyF(mask.ang)

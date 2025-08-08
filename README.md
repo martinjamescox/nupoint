@@ -1,5 +1,13 @@
 This project uses code developed by Martin Cox and David Borchers for density estimation in the presence of a density gradient.
 
+You can install ```nupoint``` using:
+
+```{r installnupoint,eval=FALSE}
+devtools::install_github('martinjamescox/nupoint')
+```
+
+There is a vignette available describing analysis of a non-uniform density gradient and there are also two pdfs with worked examples of the uniform and non-uniform density gradients in nupoint/inst/extdata/
+
 Publications related to this package are:
 
 M.J. Cox, D.L. Borchers, D.A. Demer, G.R. Cutter, and A.S. Brierley. 2011. Estimating the density of Antarctic krill (Euphausia superba) from multi-beam echo-sounder observations using distance sampling methods. Journal of the Royal Statistical Society: Series C (Applied Statistics), 60(2):301-316.

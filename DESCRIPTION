@@ -1,10 +1,9 @@
 Package: nupoint
 Title: 2D Distance Sampling
-Version: 1.1.1
+Version: 1.1.2
 Authors@R: 
     c(person(given = "Martin", family = "Cox", email = "martin.cox@aad.gov.au", role = c("aut", "cre")),
-      person(given = "David", family = "Borchers", role = "aut"),
-      person(given = "Natalie", family = "Kelly", role = "aut"))
+      person(given = "David", family = "Borchers", role = "aut"))
 Description: Provides functions to fit detection functions while allowing for
     non-uniform distribution of objects that vary with an underlying
     environmental or spatial covariate, using data from point transects.
